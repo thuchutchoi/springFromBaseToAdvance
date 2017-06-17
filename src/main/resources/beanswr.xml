@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Liên kết qua constructor -->
+	<!-- Ta sử dụng thẻ <constructor-arg> để thể hiện cho một tham số của constructor. 
+		Nếu tham số thuộc kiểu primitive (int, float, double, String…) thì ta sử 
+		dụng thuộc tính value để chỉ ra giá trị cho tham số. Nếu tham số thuộc kiểu 
+		tham chiếu, ta sử dụng thuộc tính ref để chỉ ra đối tượng mà tham số tham 
+		chiếu đến Thứ tự của các thẻ <constructor-arg> phải giống với thứ tự của 
+		các tham số bên trong constructor -->
+	<bean id="addressBean" class="com.wordpress.hautudu.beanwiring.Address">
+	</bean>
+	<bean id="studentBean" class="com.wordpress.hautudu.beanwiring.Student">
+		<constructor-arg value="18" />
+		<constructor-arg value="Nguyen Van A" />
+		<constructor-arg ref="addressBean" />
+	</bean>
+	<!-- Liên kết qua các phương thức setter -->
+	<!-- Thẻ <property> được dùng để biểu diễn cho một phương thức setter. Thuộc 
+		tính name của thẻ phải khớp với phần đuôi của phương thức setter. Ví dụ ta 
+		có phương thức là setAField(), thì lúc khai báo sẽ tương ứng là name=”aField”. 
+		Ta cũng sử dụng lần lượt hai thuộc tính value và ref cho việc gán một giá 
+		trị thuộc kiểu primitive hay thuộc kiểu tham chiếu một cách tương ứng. -->
+	<bean name="studentBean2" class="com.wordpress.hautudu.beanwiring.Student">
+		<property name="age" value="24" />
+		<property name="name" value="Nguyen Van A" />
+		<property name="address" ref="addressBean" />
+	</bean>
+<!-- Liên kết đến một inner bean -->
+<!-- Không nhất thiết phải chỉ ra name cho một inner bean
+Phạm vi của inner bean chỉ giới hạn ở trong vùng nó được khai báo để khởi tạo. -->
+	<bean name="studentBean3" class="com.wordpress.hautudu.beanwiring.Student">
+		<constructor-arg value="24" />
+		<constructor-arg value="Nguyen Van A" />
+		<constructor-arg>
+			<bean class="com.wordpress.hautudu.beanwiring.Address">
+			</bean>
+		</constructor-arg>
+	</bean>
+	
+	
+	<bean name="studentBean4" class="com.wordpress.hautudu.beanwiring.Student">  
+      <property name="age" value="24"/>  
+      <property name="name" value="Nguyen Van A"/>  
+      <property name="address">  
+           <bean class="com.wordpress.hautudu.beanwiring.Address">  
+           </bean>  
+      </property>  
+ </bean>
+ <!-- Liên kết cho các thuộc tính thuộc kiểu List, Set -->
+ <!-- Dùng thẻ <list> hoặc <set> để chỉ ra thuộc tính là thuộc kiểu List, hay Set
+Dùng thẻ <value> để gán giá trị cho từng phần tử của list (set) trong trường hợp các phần tử thuộc kiểu primitive. Nếu các phần tử của list (set) là thuộc kiểu tham chiếu thì ta sẽ dùng thẻ <ref bean=”referencedBeanName” /> thay cho thẻ <value>
+Trong trường hợp trên, ta hoàn toàn có thể sử dụng thẻ <set> để thay cho thẻ <list>. Lúc đó các phần tử bên trong thuộc tính books sẽ là duy nhất, không bị lặp lại. -->
+<bean name="studentBean5" class="com.wordpress.hautudu.beanwiring.Student">  
+      <property name="books">  
+           <list>  
+                <value>Book1</value>  
+                <value>Book2</value>  
+                <value>Book3</value>  
+           </list>  
+      </property>  
+ </bean>
+<!--  Liên kết cho các thuộc tính thuộc kiểu Map --> 
+<!-- Dùng thẻ <map> để chỉ ra đây là một thuộc tính kiểu Map
+Mỗi một phần tử của Map sẽ được biểu diễn bởi một thẻ <entry>.
+Trong thẻ <entry>, thuộc tính key (hoặc key-ref) sẽ được dùng để gán giá trị cho key thuộc kiểu primitive (hoặc kiểu tham chiếu)
+Trong thẻ <entry> thuộc tính value (hoặc value-ref) sẽ được dùng để gán giá trị thuộc kiểu primitive (hoặc kiểu tham chiếu) cho value tương ứng với key trong entry. -->
+ <bean name="mathSubjectBean" class="com.wordpress.hautudu.beanwiring.Subject">  
+      <property name="name" value="Math"/>  
+ </bean>  
+
+ <bean name="physicSubjectBean" class="com.wordpress.hautudu.beanwiring.Subject">  
+      <property name="name" value="Physic"/>  
+ </bean>  
+
+ <bean name="studentBean6" class="com.wordpress.hautudu.beanwiring.Student">  
+      <property name="timeTable">  
+           <map>  
+                <entry key="Monday" value-ref="mathSubjectBean"/>  
+                <entry key="Tuesday" value-ref="physicSubjectBean"/>  
+           </map>  
+      </property>  
+ </bean>
+ <!-- Liên kết cho các thuộc tính thuộc kiểu Properties -->
+ <!-- Dùng thẻ <props> để chỉ ra đây là thuộc tính thuộc kiểu Properties
+Dùng thẻ <prop> để chỉ ra một phần tử là một cặp key và value. Thuộc tính key của thẻ này sẽ chỉ ra giá trị cho key của phần tử, và value tương ứng với key sẽ nằm trong phần thân của thẻ <prop> -->
+ <bean name="studentBean7" class="com.wordpress.hautudu.beanwiring.Student">  
+      <property name="hobbies">  
+           <props>  
+                <prop key="music">Jazz, Rock</prop>  
+                <prop key="TVShow">News, Games</prop>  
+           </props>  
+      </property>  
+ </bean>
+ 
+ 
+ <!--  -->
+ <bean name="addressBean1" class="com.wordpress.hautudu.beanwiring.Address">  
+           <property name="district" value="Ha Noi"/>  
+           <property name="street" value="Pham Hung"/>  
+           <property name="houseNumber" value="889"/>  
+      </bean>  
+
+      <bean name="mathSubjectBean1" class="com.wordpress.hautudu.beanwiring.Subject">  
+           <property name="name" value="Math"/>  
+      </bean>  
+
+      <bean name="physicSubjectBean1" class="com.wordpress.hautudu.beanwiring.Subject">  
+           <property name="name" value="Physic"/>  
+      </bean>  
+
+      <bean name="studentBean8" class="com.wordpress.hautudu.beanwiring.Student">  
+           <property name="age" value="24"/>  
+           <property name="name" value="Nguyen Van A"/>  
+           <property name="address" ref="addressBean1"/>  
+
+           <property name="books">  
+                <list>  
+                     <value>Book1</value>  
+                     <value>Book2</value>  
+                     <value>Book3</value>  
+                </list>  
+           </property>       
+
+           <property name="timeTable">  
+                <map>  
+                     <entry key="Monday" value-ref="mathSubjectBean1"/>  
+                     <entry key="Tuesday" value-ref="physicSubjectBean1"/>  
+                </map>  
+           </property>  
+
+           <property name="hobbies">  
+                <props>  
+                     <prop key="music">Jazz, Rock</prop>  
+                     <prop key="TVShow">News, Games</prop>  
+                </props>  
+           </property>  
+      </bean>  
+ 
+ 
+</beans>

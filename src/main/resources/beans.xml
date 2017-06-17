@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Autowire by Name -->
+	<!-- Trong quá trình khởi tạo các thành phần của Spring container, các tham 
+		chiếu laptop1, laptop2 trong laptopStore sẽ tự động được liên kết đến các 
+		bean có tên trùng với phần sau của phương thức setter tương ứng với từng 
+		tham chiếu. Ví dụ bean có tên XXX sẽ được liên kết đến tham chiếu có phương 
+		thức setter là setXXX() -->
+	<bean id="laptop1" class="com.wordpress.hautudu.autowiring.AcerLaptop" />
+	<bean id="laptop2" class="com.wordpress.hautudu.autowiring.LenovoLaptop" />
+
+	<bean id="laptopStore" class="com.wordpress.hautudu.autowiring.LaptopStore"
+		autowire="byName" />
+
+	<!-- by type -->
+	<!-- Trong trường hợp container tìm thấy nhiều hơn hai bean có cùng kiểu 
+		với một tham chiếu thì một exception sẽ được ném ra. Cũng đúng thôi, bởi 
+		vì lúc đó Spring container sẽ không biết phải lấy ra bean nào trong số những 
+		bean thỏa mãn để liên kết đến tham chiếu. -->
+	<bean id="laptopStore2" class="com.wordpress.hautudu.autowiring.LaptopStore2"
+		autowire="byType" />
+	<!-- contructor -->
+	<!-- Spring container sẽ tìm đến một constructor và tự động truyền vào constructor 
+		đó các bean có kiểu giống như kiểu của các tham số trong constructor đó. 
+		Ở đây tư tưởng giống như autowire by type ở trên, nhưng sẽ là tìm đến các 
+		bean có kiểu phù hợp với kiểu của các tham số trong constructor thay vì tìm 
+		đến các bean có kiểu phù hợp với kiểu của các tham số trong các phương thức 
+		setter. -->
+	<!-- Spring container sẽ tìm đến một constructor và tự động truyền vào constructor 
+		đó các bean có kiểu giống như kiểu của các tham số trong constructor đó. 
+		Ở đây tư tưởng giống như autowire by type ở trên, nhưng sẽ là tìm đến các 
+		bean có kiểu phù hợp với kiểu của các tham số trong constructor thay vì tìm 
+		đến các bean có kiểu phù hợp với kiểu của các tham số trong các phương thức 
+		setter. -->
+	<bean id="laptopStore3" class="com.wordpress.hautudu.autowiring.LaptopStore3"
+		autowire="constructor" />
+	<bean id="laptopStore4" class="com.wordpress.hautudu.autowiring.LaptopStore4"
+		autowire="no" />
+</beans>

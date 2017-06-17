@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="dogBean" class="com.wordpress.hautudu.farmSpring.Dog" />
+
+	<bean id="catBean" class="com.wordpress.hautudu.farmSpring.Cat" />
+
+	<bean id="houseBean" class="com.wordpress.hautudu.farmSpring.House">
+		<property name="animal1" ref="dogBean" />
+		<property name="animal2" ref="catBean" />
+	</bean>
+</beans>
