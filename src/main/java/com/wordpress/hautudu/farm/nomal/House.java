@@ -1,4 +1,4 @@
-package com.wordpress.hautudu.farm;
+package com.wordpress.hautudu.farm.nomal;
 
 public class House {
     private Animal animal1;

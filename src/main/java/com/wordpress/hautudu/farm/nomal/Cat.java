@@ -1,4 +1,4 @@
-package com.wordpress.hautudu.farm;
+package com.wordpress.hautudu.farm.nomal;
 
 public class Cat implements Animal {
     @Override
