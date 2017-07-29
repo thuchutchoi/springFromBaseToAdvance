@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Import;
 @Configuration
 public class House {
     @Autowired
-    @Qualifier("dogBean")
+    @Qualifier("dog") // by name
     private Animal animal1;
     @Autowired
-    @Qualifier("catBean")
+    @Qualifier("cat") // by name
     private Animal animal2;
 
     public Animal getAnimal1() {

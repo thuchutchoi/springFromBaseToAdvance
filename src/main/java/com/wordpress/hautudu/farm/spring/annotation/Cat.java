@@ -2,7 +2,7 @@ package com.wordpress.hautudu.farm.spring.annotation;
 
 import org.springframework.context.annotation.Configuration;
 
-@Configuration("catBean")
+@Configuration("cat")
 public class Cat implements Animal {
     @Override
     public String makeSound() {
