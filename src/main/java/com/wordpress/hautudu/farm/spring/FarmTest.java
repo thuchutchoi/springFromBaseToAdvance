@@ -1,4 +1,4 @@
-package com.wordpress.hautudu.farmSpring;
+package com.wordpress.hautudu.farm.spring;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;

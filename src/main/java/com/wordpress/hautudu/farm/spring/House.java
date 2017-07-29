@@ -1,4 +1,4 @@
-package com.wordpress.hautudu.farmSpring;
+package com.wordpress.hautudu.farm.spring;
 
 public class House {
     private Animal animal1;
